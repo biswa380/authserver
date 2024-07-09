@@ -44,7 +44,6 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
-// https://www.youtube.com/watch?v=9oFyzXgbzwo
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -69,33 +68,15 @@ public class SecurityConfig {
     public SecurityFilterChain defauFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        // .cors(cors -> cors.disable())
         .authorizeHttpRequests(request -> request.anyRequest().authenticated())
         .formLogin(Customizer.withDefaults());
         return httpSecurity.build();
-        // return httpSecurity
-        // .csrf(csrf -> csrf.disable())
-        // .authorizeHttpRequests(auth -> auth.requestMatchers("/register", "/error", "/css/**", "/login").permitAll()
-        // .anyRequest().authenticated())
-        // .httpBasic(Customizer.withDefaults())
-        // .formLogin(Customizer.withDefaults())
-        // .build();
     }
 
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     UserDetails userDetails = User.withUsername("admin")
-    //     .password("admin")
-    //     .authorities("read")
-    //     .build();
-
-    //     return new InMemoryUserDetailsManager(userDetails);
-    // } 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-        // return NoOpPasswordEncoder.getInstance();
     }
     
 
